@@ -3,32 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diseno 855 — Naturizable</title>
+<title>Naturizable Links</title>
 <link rel="icon" type="image/png" href="/assets/logo-blanco.png">
 <style>
   :root{
     --bg1:#0b2414;
     --bg2:#163a21;
+    --bg3:#1f5130;
     --card:#ffffff;
+    --card-hover:#f4fbf6;
     --text:#0f2e1b;
     --muted:#6b7d70;
     --accent:#3fae57;
+    --ring:rgba(63,174,87,.35);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{height:100%;}
+  html,body{
+    height:100%;
+    overflow:hidden;
+    overscroll-behavior:none;
+  }
   body{
-    min-height:100vh;
+    height:100vh;
+    height:100svh;
     display:flex;
     align-items:center;
     justify-content:center;
     font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
     background:linear-gradient(160deg,var(--bg1),var(--bg2));
-    padding:32px 20px;
-    position:relative;
+    padding:clamp(12px,4vh,32px) 20px;
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    touch-action:none;
   }
   body::before{
     content:"";
-    position:fixed;
+    position:absolute;
     inset:0;
     background-image:radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
     background-size:26px 26px;
@@ -36,7 +47,8 @@
   }
   .wrap{
     width:100%;
-    max-width:460px;
+    max-width:420px;
+    max-height:100%;
     text-align:center;
     position:relative;
     z-index:1;
@@ -47,15 +59,25 @@
     to{opacity:1; transform:translateY(0);}
   }
   .logo-wrap{
-    width:56px;height:56px;
+    width:clamp(64px,13vh,104px);height:clamp(64px,13vh,104px);
     border-radius:50%;
     background:#ffffff14;
     backdrop-filter:blur(6px);
     border:1px solid #ffffff2a;
     display:flex;align-items:center;justify-content:center;
-    margin:0 auto 12px;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-    padding:8px;
+    margin:0 auto clamp(8px,1.6vh,18px);
+    box-shadow:0 10px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(63,174,87,.45);
+    padding:14px;
+    animation:logoFloat 5s ease-in-out infinite, pulseRing 2.8s ease-out infinite;
+  }
+  @keyframes logoFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-6px);}
+  }
+  @keyframes pulseRing{
+    0%{box-shadow:0 10px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(63,174,87,.45);}
+    70%{box-shadow:0 10px 30px rgba(0,0,0,.35), 0 0 0 16px rgba(63,174,87,0);}
+    100%{box-shadow:0 10px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(63,174,87,0);}
   }
   .logo-wrap img{
     width:100%;
@@ -64,62 +86,147 @@
   }
   h1{
     color:#fff;
-    font-size:22px;
+    font-size:24px;
     font-weight:700;
-    margin-bottom:4px;
+    margin-bottom:6px;
     letter-spacing:.3px;
   }
   p.sub{
     color:#b9d9c1;
     font-size:14px;
-    margin-bottom:18px;
+    margin-bottom:clamp(14px,3vh,32px);
     letter-spacing:.2px;
   }
-  .card{
-    position:relative;
-    background:var(--card);
-    border-radius:26px;
-    padding:16px;
-    box-shadow:0 25px 60px rgba(0,0,0,.45), 0 0 0 1px #ffffff20;
+  .links{
+    display:flex;
+    flex-direction:column;
+    gap:clamp(8px,1.6vh,14px);
   }
-  .card::before{
+  a.link{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--card);
+    color:var(--text);
+    text-decoration:none;
+    padding:clamp(10px,2vh,17px) 20px;
+    border-radius:18px;
+    font-weight:600;
+    font-size:15px;
+    box-shadow:0 4px 16px rgba(0,0,0,.18);
+    border:1px solid transparent;
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(16px);
+    animation:linkIn .55s cubic-bezier(.2,.8,.2,1) forwards;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background .25s ease, border-color .25s ease;
+  }
+  .links a:nth-child(1){animation-delay:.15s;}
+  .links a:nth-child(2){animation-delay:.28s;}
+  .links a:nth-child(3){animation-delay:.41s;}
+  @keyframes linkIn{
+    to{opacity:1; transform:translateY(0);}
+  }
+  a.link:hover{
+    transform:translateY(-4px) scale(1.015);
+    box-shadow:0 16px 30px rgba(0,0,0,.3);
+    background:var(--card-hover);
+    border-color:var(--ring);
+  }
+  a.link:active{
+    transform:translateY(-1px) scale(.99);
+  }
+  a.link .icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#eafaef,#d9f2df);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), background .3s ease;
+  }
+  a.link:hover .icon{
+    transform:rotate(-8deg) scale(1.08);
+    background:linear-gradient(135deg,#d9f2df,#bfe9ca);
+  }
+  a.link .icon svg{
+    width:20px;
+    height:20px;
+    stroke:var(--accent);
+  }
+  a.link .label{
+    flex:1;
+    text-align:left;
+  }
+  a.link .arrow{
+    color:var(--muted);
+    font-size:16px;
+    transition:transform .25s ease, color .25s ease;
+  }
+  a.link:hover .arrow{
+    transform:translateX(4px);
+    color:var(--accent);
+  }
+  a.link::after{
     content:"";
     position:absolute;
-    inset:-18px;
-    border-radius:34px;
-    background:radial-gradient(circle at 50% 30%, rgba(63,174,87,.35), transparent 65%);
-    filter:blur(10px);
-    z-index:-1;
+    top:50%;left:50%;
+    width:0;height:0;
+    background:radial-gradient(circle, rgba(63,174,87,.25), transparent 60%);
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    pointer-events:none;
+    transition:width .5s ease, height .5s ease, opacity .5s ease;
+    opacity:0;
   }
-  .card img{
-    width:100%;
-    display:block;
-    border-radius:16px;
-    object-fit:cover;
-    min-height:50vh;
-    max-height:60vh;
+  a.link.ripple::after{
+    width:320px;height:320px;
+    opacity:1;
   }
-  .back{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    margin-top:26px;
-    color:#d9f2df;
-    text-decoration:none;
-    font-size:14px;
-    font-weight:600;
-    padding:12px 22px;
-    border-radius:999px;
+  .social-row{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:clamp(10px,2.5vh,20px);
+    margin-top:clamp(18px,4vh,46px);
+    padding:0 8px;
+  }
+  .social-row a{
+    width:clamp(38px,8vh,46px);
+    height:clamp(38px,8vh,46px);
+    border-radius:50%;
     background:#ffffff14;
     border:1px solid #ffffff2a;
-    transition:transform .2s ease, background .2s ease;
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    opacity:0;
+    transform:translateY(10px);
+    animation:linkIn .5s cubic-bezier(.2,.8,.2,1) forwards;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), background .25s ease, box-shadow .25s ease;
   }
-  .back:hover{
-    transform:translateY(-2px);
+  .social-row a:nth-child(1){animation-delay:.55s;}
+  .social-row a:nth-child(2){animation-delay:.62s;}
+  .social-row a:nth-child(3){animation-delay:.69s;}
+  .social-row a:nth-child(4){animation-delay:.76s;}
+  .social-row a:nth-child(5){animation-delay:.83s;}
+  .social-row a:hover{
+    transform:translateY(-5px) scale(1.12);
     background:#ffffff28;
+    box-shadow:0 8px 18px rgba(0,0,0,.25);
+  }
+  .social-row svg{
+    width:clamp(16px,3.4vh,19px);
+    height:clamp(16px,3.4vh,19px);
+    stroke:#fff;
+    transition:transform .25s ease;
+  }
+  .social-row a:hover svg{
+    transform:scale(1.1);
   }
   footer{
-    margin-top:28px;
+    margin-top:clamp(14px,3vh,34px);
     color:#9fc2a7;
     font-size:12px;
     letter-spacing:.3px;
@@ -131,13 +238,83 @@
     <div class="logo-wrap">
       <img src="/assets/logo-blanco.png" alt="Naturizable">
     </div>
-    <h1>Diseno 855</h1>
-    <p class="sub">100% Naturizable</p>
-    <div class="card">
-      <img src="/assets/855.png" alt="Diseno Charola 855">
+    <h1>100% Naturizable</h1>
+    <p class="sub">elige una opcion</p>
+    <div class="links">
+      <a class="link" href="https://naturizable.com/" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9z"/>
+          </svg>
+        </span>
+        <span class="label">100% Naturizable</span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link" href="/diseno-855" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a9 9 0 1 0 9 9c0-1-.5-1.6-1.5-1.6h-2a2.5 2.5 0 0 1-2-4L17 4"/>
+            <circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="9.5" cy="15.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="14.5" cy="16.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="label">Diseno 855</span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link" href="#" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a9 9 0 1 0 9 9c0-1-.5-1.6-1.5-1.6h-2a2.5 2.5 0 0 1-2-4L17 4"/>
+            <circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="9.5" cy="15.5" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="14.5" cy="16.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="label">Diseno 066</span>
+        <span class="arrow">→</span>
+      </a>
     </div>
-    <a class="back" href="/">← Volver al inicio</a>
+
+    <div class="social-row">
+      <a href="https://www.instagram.com/100_naturizable?obrf=cDMzNmIwNTJ1NHd6" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v8h4v-8h3l1-4h-4V8a1 1 0 0 1 1-1z"/>
+        </svg>
+      </a>
+      <a href="https://www.tiktok.com/@100.naturizable?_r=1&_t=ZS-9Am4fp9EuTl" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 3v10.5a3.5 3.5 0 1 1-3-3.46"/>
+          <path d="M14 3a5 5 0 0 0 5 5"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/524431151629" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/>
+          <path d="M8.5 9c0 4 2.5 6.5 6.5 6.5.5-1 .3-1.6-.2-1.9l-1.6-.9c-.4-.2-.8-.1-1 .2l-.4.5c-1-.5-1.9-1.4-2.4-2.4l.5-.4c.3-.2.4-.6.2-1l-.9-1.6c-.3-.5-.9-.7-1.9-.2"/>
+        </svg>
+      </a>
+    </div>
+
     <footer>Naturizable 2026</footer>
   </div>
+
+  <script>
+    document.querySelectorAll('a.link').forEach(function(el){
+      el.addEventListener('click', function(){
+        el.classList.remove('ripple');
+        void el.offsetWidth;
+        el.classList.add('ripple');
+      });
+    });
+  </script>
 </body>
 </html>
