@@ -47,15 +47,15 @@
     to{opacity:1; transform:translateY(0);}
   }
   .logo-wrap{
-    width:72px;height:72px;
+    width:56px;height:56px;
     border-radius:50%;
     background:#ffffff14;
     backdrop-filter:blur(6px);
     border:1px solid #ffffff2a;
     display:flex;align-items:center;justify-content:center;
-    margin:0 auto 16px;
+    margin:0 auto 12px;
     box-shadow:0 10px 30px rgba(0,0,0,.35);
-    padding:10px;
+    padding:8px;
   }
   .logo-wrap img{
     width:100%;
@@ -72,21 +72,32 @@
   p.sub{
     color:#b9d9c1;
     font-size:14px;
-    margin-bottom:26px;
+    margin-bottom:18px;
     letter-spacing:.2px;
   }
   .card{
+    position:relative;
     background:var(--card);
-    border-radius:22px;
-    padding:14px;
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
-    border:1px solid #ffffff30;
+    border-radius:26px;
+    padding:16px;
+    box-shadow:0 25px 60px rgba(0,0,0,.45), 0 0 0 1px #ffffff20;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:-18px;
+    border-radius:34px;
+    background:radial-gradient(circle at 50% 30%, rgba(63,174,87,.35), transparent 65%);
+    filter:blur(10px);
+    z-index:-1;
   }
   .card img{
     width:100%;
     display:block;
-    border-radius:14px;
+    border-radius:16px;
     object-fit:cover;
+    min-height:50vh;
+    max-height:60vh;
   }
   .back{
     display:inline-flex;
